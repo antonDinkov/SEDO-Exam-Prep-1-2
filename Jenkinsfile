@@ -4,22 +4,17 @@ pipeline {
     stages {
         stage('Checkout') {
             when {
-                anyOf {
-                    branch 'develop'
-                    branch 'main'
-                }
+                expression { env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'main' }
             }
             steps {
+                echo "Current branch: ${env.BRANCH_NAME}"
                 checkout scm
             }
         }
 
         stage('Restore dependencies') {
             when {
-                anyOf {
-                    branch 'develop'
-                    branch 'main'
-                }
+                expression { env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'main' }
             }
             steps {
                 bat 'dotnet restore'
@@ -28,10 +23,7 @@ pipeline {
 
         stage('Build') {
             when {
-                anyOf {
-                    branch 'develop'
-                    branch 'main'
-                }
+                expression { env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'main' }
             }
             steps {
                 bat 'dotnet build --no-restore'
@@ -40,10 +32,7 @@ pipeline {
 
         stage('Test') {
             when {
-                anyOf {
-                    branch 'develop'
-                    branch 'main'
-                }
+                expression { env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'main' }
             }
             steps {
                 bat 'dotnet test --no-build --verbosity normal'
