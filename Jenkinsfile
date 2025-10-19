@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             when {
-                anyof {
+                anyOf {
                     branch 'develop'
                     branch 'main'
                 }
@@ -16,7 +16,7 @@ pipeline {
 
         stage('Restore dependencies') {
             when {
-                anyof {
+                anyOf {
                     branch 'develop'
                     branch 'main'
                 }
@@ -28,7 +28,7 @@ pipeline {
 
         stage('Build') {
             when {
-                anyof {
+                anyOf {
                     branch 'develop'
                     branch 'main'
                 }
@@ -40,7 +40,7 @@ pipeline {
 
         stage('Test') {
             when {
-                anyof {
+                anyOf {
                     branch 'develop'
                     branch 'main'
                 }
